@@ -11,8 +11,8 @@ class EmployeeDetailApi(Resource):
     @jwt_required
     def get(self, id):
         try:
-            employee_email = get_jwt_identity()
-            employee = EmployeeDetails.objects.get(email=employee_email).to_json()
+            employee_id = get_jwt_identity()
+            employee = EmployeeDetails.objects.get(employee_id=employee_id).to_json()
             return Response(employee, mimetype="application/json", status=200)
         except DoesNotExist:
             raise EmployeeDetailsNotExistsError

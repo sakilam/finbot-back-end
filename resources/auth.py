@@ -1,7 +1,7 @@
 from flask import request
 from flask import Response, request
 from flask_jwt_extended import create_access_token
-from database.models import Employees
+from database.models import Employees, EmployeeDetails
 from flask_restful import Resource
 import datetime
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist
@@ -16,6 +16,12 @@ class SignupApi(Resource):
             employee.hash_password()
             employee.save()
             id = employee.id
+            employee_detail = EmployeeDetails.objects.get(personal_details__email=body.get('email'))
+            employee_detail.employee_id = id
+            employee_detail.save()
+            return {'id': str(id)}, 200
+        except DoesNotExist:
+            print("Employee details not found!")
             return {'id': str(id)}, 200
         except FieldDoesNotExist:
             raise SchemaValidationError
@@ -35,7 +41,7 @@ class LoginApi(Resource):
                 raise UnauthorizedError
 
             expires = datetime.timedelta(days=7)
-            access_token = create_access_token(identity=str(employee.email), expires_delta=expires)
+            access_token = create_access_token(identity=str(employee.id), expires_delta=expires)
             return {'token': access_token}, 200
         except (UnauthorizedError, DoesNotExist):
             raise UnauthorizedError

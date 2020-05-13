@@ -2,16 +2,20 @@ from .db import db
 from flask_bcrypt import generate_password_hash, check_password_hash
 
 class EmployeeDetails(db.Document):
-    employee_id = db.StringField()
-    employee_name = db.StringField()
-    email = db.StringField()
-    company = db.StringField()
-    joined_on = db.StringField()
-    designation = db.StringField()
-    pan_no = db.StringField()
-    dob = db.StringField()
-    type_of_job = db.StringField()
-    marital_status = db.StringField()
+    employee_id = db.ReferenceField('Employees')
+    emp_id = db.IntField()
+    personal_details = db.DictField()
+    latest_pay_slip = db.DictField()
+    latest_ctc = db.DictField()
+    leave_balance = db.DictField()
+    guest_wifi_password = db.StringField()
+    it_operations_contact = db.StringField()
+    hr_contact = db.StringField()
+    claim_form_links = db.StringField()
+    tax_slab_chosen = db.StringField()
+    tax_slab = db.DictField()
+    project = db.StringField()
+    reporting_manager = db.StringField()
 
 class Employees(db.Document):
     email = db.EmailField(required=True, unique=True)
