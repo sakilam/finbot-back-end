@@ -13,7 +13,7 @@ class EmployeeDetails(db.Document):
     type_of_job = db.StringField()
     marital_status = db.StringField()
 
-class User(db.Document):
+class Employee(db.Document):
     email = db.EmailField(required=True, unique=True)
     password = db.StringField(required=True, min_length=6)
 
