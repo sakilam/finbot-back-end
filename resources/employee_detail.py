@@ -1,6 +1,6 @@
 from flask import Response, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from database.models import EmployeeDetails, Employee
+from database.models import EmployeeDetails
 from flask_restful import Resource
 
 from mongoengine.errors import DoesNotExist

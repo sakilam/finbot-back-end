@@ -1,7 +1,7 @@
 from flask import request
 from flask import Response, request
 from flask_jwt_extended import create_access_token
-from database.models import Employee
+from database.models import Employees
 from flask_restful import Resource
 import datetime
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist
@@ -12,7 +12,7 @@ class SignupApi(Resource):
     def post(self):
         try:
             body = request.get_json()
-            employee = Employee(**body)
+            employee = Employees(**body)
             employee.hash_password()
             employee.save()
             id = employee.id
@@ -29,7 +29,7 @@ class LoginApi(Resource):
     def post(self):
         try:
             body = request.get_json()
-            employee = Employee.objects.get(email=body.get('email'))
+            employee = Employees.objects.get(email=body.get('email'))
             authorized = employee.check_password(body.get('password'))
             if not authorized:
                 raise UnauthorizedError
