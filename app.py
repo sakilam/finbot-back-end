@@ -15,10 +15,7 @@ jwt = JWTManager(app)
 
 app.config['MONGODB_SETTINGS'] = {
     'db': os.environ.get('MONGO_DB_NAME'),
-    'host': os.environ.get('MONGO_HOST_NAME'),
-    'port': int(os.environ.get('MONGO_PORT')),
-    'username': os.environ.get('MONGO_USERNAME'),
-    'password': os.environ.get('MONGO_PASSWORD'),
+    'host': os.environ.get('MONGO_HOST_URI'),
     'authentication_source': os.environ.get('MONGO_AUTHENTICATION_SOURCE')
 }
 
