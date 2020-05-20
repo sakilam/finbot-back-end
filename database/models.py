@@ -2,7 +2,6 @@ from .db import db
 from flask_bcrypt import generate_password_hash, check_password_hash
 
 class EmployeeDetails(db.Document):
-    employee_id = db.ReferenceField('Employees')
     emp_id = db.IntField()
     personal_details = db.DictField()
     latest_pay_slip = db.DictField()
@@ -12,6 +11,7 @@ class EmployeeDetails(db.Document):
     it_operations_contact = db.StringField()
     hr_contact = db.StringField()
     claim_form_links = db.StringField()
+    health_policy_number = db.StringField()
     tax_slab_chosen = db.StringField()
     tax_slab = db.DictField()
     project = db.StringField()
